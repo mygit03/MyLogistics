@@ -9,6 +9,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QScrollBar>
+#include <QMessageBox>
 #include <QDebug>
 
 Widget::Widget(QWidget *parent) :
@@ -116,6 +117,11 @@ void Widget::on_btn_select_clicked()
     }
     QString number = ui->lineEdit->text();
     qDebug() << "ddd:" << type << postid << number;
+
+    if(number.isEmpty()){
+        QMessageBox::warning(this, tr("警告"), tr("请输入快递单号!"));
+        return;
+    }
 
     request.setUrl(QString("http://api.kuaidi100.com/api?id=29833628d495d7a5&com=%1&nu=%2&show=0&muti=1&order=desc")
                    .arg(postid).arg(number));
